@@ -1,0 +1,128 @@
+---
+title: "coursera-getting-cleaning-data-codebook"
+author: "Noharminc"
+date: "October 15, 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Introduction & purpose
+
+
+Code imports and combines measurement and descriptive data to create a tidy data set. For further details, see assignment ( and description of source data and program flow (below).
+
+
+## Assignment
+
+
+You should create one R script called run_analysis.R that does the following:
+
+1. Merges the training and the test sets to create one data set.
+
+2. Extracts only the measurements on the mean and standard deviation for each measurement.
+
+3. Uses descriptive activity names to name the activities in the data set.
+
+4. Appropriately labels the data set with descriptive variable names.
+
+5. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+
+
+## Source data
+
+
+A description of the source data: 
+
+* http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones
+
+Source data can be found here:
+
+* https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip 
+      
+      |Data             |Training         |Test             |Description                                                |
+      |-----------------|-----------------|-----------------|-----------------------------------------------------------|
+      |measurements     |x_train.txt      |x_test.txt       |measurement vector with 561 values per activity/subject    |
+      |labels           |y_train.txt      |y_test.txt       |label data                                                 |
+      |subjects         |subject_train.txt|subject_test.txt |subject data                                               |
+      |activity labels  |activity_labels.txt                |activity label data                                        |
+      |features         |features.txt                       |description of measurement columns                         |
+
+
+
+## Output
+
+
+Output of the run_analysis code is one single data frame, with the following contents:
+
+* One record per subject and activity
+
+* activity
+
+* subject
+
+* Mean and Standard Deviation of all measurements
+
+
+## Program flow
+
+
+1. Import & combine data
+      a. Training data
+      
+            - Import measurements, labels, subjects
+            - Merge
+      b. Test data
+      
+            - Import measurements, labels, subjects
+            - Merge
+      c. Combine training and test data (append)
+
+
+2. Keep only mean and standard deviation measurements
+
+            - import features data
+            - keep only mean and std vars
+            - clean variable names (strip special characters)
+            - only save vars from above selection from allData (3)
+
+3. label activities with description
+
+            - import activity label data
+            - combine with measurement data
+
+
+4. Replace varnames V1-Vn with logical variable names (from features data)
+
+
+5. Summarize data: aggregate to one record with mean values per subject/activity
+
+
+## Transformations
+
+
+**Output:** 
+
+- Aggregated to one row per activity / subject - means
+
+- 2 descriptive columns: subject & activity
+
+- 66 measurement columns: mean and standard deviation
+
+
+
+
+|Column            |Source            |Type           |Transformation                                                 |
+|------------------|------------------|-------------------------------------------------------------------------------|
+|subject           |subject_train.txt |integer 1-30    |none                                                          |
+|                  |subject_test.txt  |                |                                                              |
+|actvity           |y_train.txt       |factor 6 levels |numeric value 1-6 replaced with value from activity label data|
+|                  |y_test.txt        |                                                                               |
+|measurements      |x_train.txt       |numeric         |- column name (V1-Vn) replaced with cleaned name from features|
+|                  |x_test.txt        |                |- only mean / std colums kept                                 |
+
+
+#### end of file
