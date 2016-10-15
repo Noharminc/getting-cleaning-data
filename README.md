@@ -5,6 +5,7 @@ Repository for Getting and Cleaning Data Course Project (week 4) - Datascience c
 -------------------- Program flow ---------------------------------
 
 1. Import & combine data
+
       a. Training data
       
             - Import measurements, labels, subjects
